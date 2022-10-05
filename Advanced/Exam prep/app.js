@@ -1,89 +1,79 @@
-function solve(){
+function solve() {
    
-let AuthorInput = document.getElementById('creator')
-let titleInput = document.getElementById('title')
-let CategoryInput = document.getElementById('category')
-let ContentInput =  document.getElementById('content')
-let li = document.createElement('article')
-let listtoappend = document.querySelectorAll('section')
-let ol = document.createElement('li')
-let toappendol = document.querySelector('ol')
+let fname = document.getElementById('fname')
+let lname = document.getElementById('lname')
+let email = document.getElementById('email')
+let birth = document.getElementById('birth')
+let position = document.getElementById('position')
+let salary = document.getElementById('salary')
+document.getElementById('add-worker').addEventListener('click', onclick)
+let sal = 0
+function onclick(e){
+    e.preventDefault()
+    if (fname.value != '' && lname.value != '' && email.value != '' && birth.value != '' && position.value != '' && salary.value != ''){
+        let tr = document.createElement('tr')
+        let td = document.createElement('td')
+        let tbodytoattach = document.getElementById('tbody')
+ 
+let firstn = fname.value
+let lastname = lname.value
+let emailname = email.value
+let birthname = birth.value
+let posname = position.value
+let salaryn = salary.value
 
 
-let btncreate = document.querySelector("button")
+let artr 
+tr.innerHTML = `
+<td>${fname.value}</td>
 
-btncreate.addEventListener('click', onclick)
+<td>${lname.value}</td>
 
-let title = titleInput.value
+<td>${email.value}</td>
 
-let category = CategoryInput.value
-let author = AuthorInput.value
-let content = ContentInput.value
-function onclick(ev){
-   ev.preventDefault()
-if(AuthorInput.value !=='' || titleInput.value !== '' || CategoryInput.value !== '' || ContentInput.value !== ''){
-   console.log(titleInput.value);
-li.innerHTML =` 
+<td>${birth.value}</td>
 
+<td>${position.value}</td>
 
-   <h1>${titleInput.value}</h1>
-   <p>Category:
-      <strong>${CategoryInput.value}</strong>
-   </p>
-   <p>Creator:
-      <strong>${AuthorInput.value}</strong>
+<td>${salary.value}</td>
 
-   </p><p>
-         ${ContentInput.value}
-   </p>
-   <div class = 'buttons'>
-      <button class = 'btn delete'>Delete</button>
-      <button class = 'btn archive'>Archive</button>
-   </div>
-`
-
-let btndel = li.querySelector('.delete')
-btndel.addEventListener('click',Delete)
-let btnarchive = li.querySelector('.archive')
-btnarchive.addEventListener('click', Archiving)
-
-function Delete (){
-   li.remove()
-}
-
-
-listtoappend[1].appendChild(li)
-
-
-titleInput.value = ''
-CategoryInput.value = ''
-AuthorInput.value = ''
-ContentInput.value = ''
-}
-
-else{
-
-}
-
-function Archiving(){
-   ol.innerHTML = `${title}`
+<td><button class='fired'>Fired</button> <button class="edit">Edit</button></td>`
+   tbodytoattach.appendChild(tr)
   
+    sal += Number(salary.value)
+document.getElementById('sum').textContent = sal.toFixed(2)
 
-   toappendol.appendChild(ol)
+let editbtn = tr.querySelector('.edit')
+editbtn.addEventListener('click', EditClick)
+
+let firedbtn = tr.querySelector('.fired')
+firedbtn.addEventListener('click', FireClick)
+function EditClick(){
+fname.value = tr.children[0].textContent
+lname.value = tr.children[1].textContent
+email.value = tr.children[2].textContent
+birth.value = tr.children[3].textContent
+position.value = tr.children[4].textContent
+salary.value = tr.children[5].textContent
+sal -= Number(tr.children[5].textContent)
+document.getElementById('sum').textContent = sal.toFixed(2)
+tr.remove()
+}function FireClick(){
+    sal -= Number(tr.children[5].textContent)
+document.getElementById('sum').textContent = sal.toFixed(2)
+tr.remove()
+}
+fname.value = ''
+ lname.value =''
+  email.value =''
+birth.value = ''
+ position.value = ''
+ salary.value  = ''
+
+}else{
+    console.log('nono');
 }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-  }
+}
+solve()
