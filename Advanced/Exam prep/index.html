@@ -2,78 +2,62 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="./style.css">
-    <title>Work Process</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style/css/styles.css" />
+  <title>Forum posts</title>
 </head>
 
 <body>
-    <h1>Work Process</h1>
 
-    <section id="hireForm">
-        <div class="form">
-            <div id="signup">
-                <h2>Hire people for work</h2>
-                <form>
-                    <div class="top-row">
-                        <div class="fname">
-                            <label></label>
-                            <input id="fname" type="text" placeholder="First Name">
-                        </div>
-                        <div class="lname">
-                            <label></label>
-                            <input id="lname" type="text" placeholder="Last Name">
-                        </div>
-                    </div>
-                    <div class="email">
-                        <label></label>
-                        <input id="email" type="email" placeholder="Email">
-                    </div>
-                    <div class="birth">
-                        <label></label>
-                        <input id="birth" type="text" placeholder="Date of Birth">
-                    </div>
-                    <div class="position">
-                        <label></label>
-                        <input id="position" type="text" placeholder="Position">
-                    </div>
-                    <div class="salary">
-                        <label></label>
-                        <input id="salary" type="number" placeholder="Salary">
-                    </div>
-                    <button id="add-worker" type="submit" class="button button-block">Hire Worker</button>
-                </form>
+  <body>
+    <div id="main-container">
+      <div id="left-container">
+
+        <div id="newPost" class="container">
+
+          <form class="newPostContent">
+            <h1>Add New Post</h1>
+            <input type="text" placeholder="Enter title here" id="post-title" />
+
+            <input type="text" placeholder="Enter category here" id="post-category" />
+
+            <textarea placeholder="Add content..." id="post-content"></textarea>
+
+            <button type="button" id="publish-btn">publish</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="middle-container">
+
+        <div id="relatedPosts" class="container">
+
+          <div class="bar title-bar">
+            <h2>Posts for review:</h2>
+          </div>
+
+
+          <ul id="review-list">
+
+          </ul>
+
+        </div>
+        <div id="published-container">
+          <div class="container">
+            <div class="bar title-bar">
+              <h2>Uploaded posts:</h2>
             </div>
-    </section>
 
-    <section id="table">
-        <div class="tbl-header">
-            <table>
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Date of Birth</th>
-                        <th>Position</th>
-                        <th>Salary</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            </table>
+            <ul id="published-list">
+
+            </ul>
+
+            <button id="clear-btn">Clear</button>
+          </div>
         </div>
-
-        <div class="tbl-content">
-            <table>
-                <tbody id="tbody">
-                    
-                </tbody>
-            </table>
-        </div>
-        <p id='message'>Your budget for salary must be: $<span id="sum">0.00</span></p>
-    </section>
-
-    <script src="./app.js"></script>
-</body>
+        <script src="./app.js"></script>
+  </body>
 
 </html>
