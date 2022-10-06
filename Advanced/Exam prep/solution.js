@@ -1,35 +1,81 @@
-const bookSelection = {
-  isGenreSuitable(genre, age) {
-    if (age <= 12 && (genre === "Thriller" || genre === "Horror")) {
-      return `Books with ${genre} genre are not suitable for kids at ${age} age`;
+class Garden {
+  constructor(spaceAvailable) {
+    this.spaceAvailable = spaceAvailable;
+    this.plants = [];
+    this.storage = [];
+  }
+
+  addPlant(plantName, spaceRequired) {
+    if (this.spaceAvailable < spaceRequired) {
+      throw new Error("Not enough space in the garden.");
+    }
+
+    this.spaceAvailable -= spaceRequired;
+    this.plants.push({ plantName, spaceRequired, ripe: false, quantity: 0 });
+    return `The ${plantName} has been successfully planted in the garden.`;
+  }
+
+  ripenPlant(plantName, quantity) {
+    let plant = this.plants.find((x) => x.plantName == plantName);
+
+    if (!plant) {
+      throw new Error(`There is no ${plantName} in the garden.`);
+    }
+
+    if (plant.ripe == true) {
+      throw new Error(`The ${plantName} is already ripe.`);
+    }
+
+    if (quantity <= 0) {
+      throw new Error(`The quantity cannot be zero or negative.`);
+    }
+
+    plant.ripe = true;
+    plant.quantity += quantity;
+
+    if (quantity == 1) {
+      return `${quantity} ${plantName} has successfully ripened.`;
     } else {
-      return `Those books are suitable`;
+      return `${quantity} ${plantName}s have successfully ripened.`;
     }
-  },
-  isItAffordable(price, budget) {
-    if (typeof price !== "number" || typeof budget !== "number") {
-      throw new Error("Invalid input");
+  }
+
+  harvestPlant(plantName) {
+    let plant = this.plants.find((x) => x.plantName == plantName);
+
+    if (!plant) {
+      throw new Error(`There is no ${plantName} in the garden.`);
     }
 
-    let result = budget - price;
+    if (plant.ripe == false) {
+      throw new Error(
+        `The ${plantName} cannot be harvested before it is ripe.`
+      );
+    }
 
-    if (result < 0) {
-      return "You don't have enough money";
+    this.plants = this.plants.filter((x) => x.plantName != plantName);
+    this.storage.push({ plantName, quantity: plant.quantity });
+    this.spaceAvailable += plant.spaceRequired;
+    return `The ${plantName} has been successfully harvested.`;
+  }
+
+  generateReport() {
+    let toReturn = `The garden has ${this.spaceAvailable} free space left.\n`;
+    toReturn += `Plants in the garden: ${this.plants
+      .sort((a, b) => a.plantName.localeCompare(b.plantName))
+      .map((x) => x.plantName)
+      .join(", ")}\n`;
+
+    toReturn += `Plants in storage: `;
+    if (this.storage.length === 0) {
+      toReturn += "The storage is empty.";
     } else {
-      return `Book bought. You have ${result}$ left`;
-    }
-  },
-  suitableTitles(array, wantedGenre) {
-    let resultArr = [];
-
-    if (!Array.isArray(array) || typeof wantedGenre !== "string") {
-      throw new Error("Invalid input");
-    }
-    array.map((obj) => {
-      if (obj.genre === wantedGenre) {
-        resultArr.push(obj.title);
+      let stringsToAdd = [];
+      for (let p of this.storage) {
+        stringsToAdd.push(`${p.plantName} (${p.quantity})`);
       }
-    });
-    return resultArr;
-  },
-};
+      toReturn += stringsToAdd.join(", ");
+    }
+    return toReturn;
+  }
+}
