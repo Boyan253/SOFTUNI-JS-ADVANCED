@@ -1,81 +1,75 @@
-class Garden {
-  constructor(spaceAvailable) {
-    this.spaceAvailable = spaceAvailable;
-    this.plants = [];
-    this.storage = [];
-  }
+window.addEventListener('load', solution);
 
-  addPlant(plantName, spaceRequired) {
-    if (this.spaceAvailable < spaceRequired) {
-      throw new Error("Not enough space in the garden.");
-    }
+function solution() {
 
-    this.spaceAvailable -= spaceRequired;
-    this.plants.push({ plantName, spaceRequired, ripe: false, quantity: 0 });
-    return `The ${plantName} has been successfully planted in the garden.`;
-  }
+  let fullnameinp = document.getElementById('fname')
+  let emailinp = document.getElementById("email")
+  let phoneinp = document.getElementById('phone')
+  let adressinp = document.getElementById('address')
+  let postalcodeinp = document.getElementById('code')
 
-  ripenPlant(plantName, quantity) {
-    let plant = this.plants.find((x) => x.plantName == plantName);
+  document.getElementById('submitBTN').addEventListener('click', Onclick)
 
-    if (!plant) {
-      throw new Error(`There is no ${plantName} in the garden.`);
-    }
+  function Onclick(ev) {
+    ev.preventDefault()
+    if (fullnameinp.value != '' && emailinp.value != '') {
+      let ultoappend = document.getElementById('infoPreview')
+      let li = document.createElement('li')
+      let fname = fullnameinp.value
+      let email = emailinp.value
+      let phone = phoneinp.value
+      let address = adressinp.value
+      let postalcode = postalcodeinp.value
+ 
 
-    if (plant.ripe == true) {
-      throw new Error(`The ${plantName} is already ripe.`);
-    }
 
-    if (quantity <= 0) {
-      throw new Error(`The quantity cannot be zero or negative.`);
-    }
+      li.innerHTML = `
+                <li>Full Name: ${fullnameinp.value}</li>
+                <li>Email: ${emailinp.value}</li>
+                <li>Phone Number: ${phoneinp.value}</li>
+                <li>Address: ${adressinp.value}</li>
+                <li>Postal Code: ${postalcodeinp.value}</li>
+                `
+      fullnameinp.value = ''
+      emailinp.value = ''
+      phoneinp.value = ''
+      adressinp.value = ''
+      postalcodeinp.value = ''
 
-    plant.ripe = true;
-    plant.quantity += quantity;
+      ultoappend.appendChild(li)
+      document.getElementById('submitBTN').disabled = true
 
-    if (quantity == 1) {
-      return `${quantity} ${plantName} has successfully ripened.`;
-    } else {
-      return `${quantity} ${plantName}s have successfully ripened.`;
-    }
-  }
 
-  harvestPlant(plantName) {
-    let plant = this.plants.find((x) => x.plantName == plantName);
+      let editbtn = document.getElementById('editBTN')
+      document.getElementById('editBTN').disabled = false
+      editbtn.addEventListener('click', EditCLick)
+      let continuebtn = document.getElementById('continueBTN')
 
-    if (!plant) {
-      throw new Error(`There is no ${plantName} in the garden.`);
-    }
+      continuebtn.disabled = false
 
-    if (plant.ripe == false) {
-      throw new Error(
-        `The ${plantName} cannot be harvested before it is ripe.`
-      );
-    }
+      continuebtn.addEventListener('click', OnContinuing)
 
-    this.plants = this.plants.filter((x) => x.plantName != plantName);
-    this.storage.push({ plantName, quantity: plant.quantity });
-    this.spaceAvailable += plant.spaceRequired;
-    return `The ${plantName} has been successfully harvested.`;
-  }
-
-  generateReport() {
-    let toReturn = `The garden has ${this.spaceAvailable} free space left.\n`;
-    toReturn += `Plants in the garden: ${this.plants
-      .sort((a, b) => a.plantName.localeCompare(b.plantName))
-      .map((x) => x.plantName)
-      .join(", ")}\n`;
-
-    toReturn += `Plants in storage: `;
-    if (this.storage.length === 0) {
-      toReturn += "The storage is empty.";
-    } else {
-      let stringsToAdd = [];
-      for (let p of this.storage) {
-        stringsToAdd.push(`${p.plantName} (${p.quantity})`);
+      function EditCLick() {
+        li.remove()
+        fullnameinp.value = fname
+        emailinp.value = email
+        phoneinp.value = phone
+        adressinp.value = address
+        postalcodeinp.value = postalcode
+        document.getElementById('editBTN').disabled = true
+        continuebtn.disabled = true
+        document.getElementById('submitBTN').disabled = false
       }
-      toReturn += stringsToAdd.join(", ");
+
+      function OnContinuing() {
+let divid = document.getElementById('block')
+divid.innerHTML = `<h3>Thank you for your reservation!</h3>`
+        console.log('hi');
+      }
+    } else {
+return
     }
-    return toReturn;
   }
+
+
 }
