@@ -1,0 +1,23 @@
+{
+  "name": "old-exam-prep---book-selection",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Mocha.js",
+  "dependencies": {
+    "assertion-error": "^1.1.0",
+    "chai": "^4.3.6",
+    "check-error": "^1.0.2",
+    "deep-eql": "^3.0.1",
+    "get-func-name": "^2.0.0",
+    "loupe": "^2.3.4",
+    "pathval": "^1.1.1",
+    "type-detect": "^4.0.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
